@@ -38,6 +38,8 @@ import java.util.concurrent.Executors;
  * picture_window, the Picture Window app's current photo with its credit, falling back to the theme's pictures.
  */
 final class WallpaperPlayer {
+    /** Room around the caption for its shadow; the margins give it back so the text stays where it was. */
+    private static final int SHADOW_PAD_DP = 8;
     private final FrameLayout root;
     private final ImageView image;
     private final int backgroundColor;
@@ -328,7 +330,11 @@ final class WallpaperPlayer {
         TextView text = new TextView(context);
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         text.setTextColor(0xD9FFFFFF);
-        text.setShadowLayer(6 * dp, 0, dp, 0xCC000000);
+        // A tight shadow inside padding: a wide one is cut off at the view's edges while the caption fades (the
+        // fade draws into a layer the size of the view), which shows as a dark box instead of a glow on the letters.
+        text.setShadowLayer(2 * dp, 0, dp, 0xE6000000);
+        int pad = Math.round(SHADOW_PAD_DP * dp);
+        text.setPadding(pad, pad, pad, pad);
         if (lines == 1) {
             text.setSingleLine(true);
         } else {
@@ -345,8 +351,8 @@ final class WallpaperPlayer {
         }
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP | Gravity.END);
-        params.topMargin = Math.round(110 * dp);
-        params.setMarginEnd(Math.round(62 * dp));
+        params.topMargin = Math.round((110 - SHADOW_PAD_DP) * dp);
+        params.setMarginEnd(Math.round((62 - SHADOW_PAD_DP) * dp));
         root.addView(text, params);
         return text;
     }

@@ -118,14 +118,21 @@
         android:id="@+id/hero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="62dp"
         android:orientation="vertical"
         android:alpha="0">
+
+        <!-- The shadow keeps the name readable over a bright wallpaper; the 6dp padding (given back by the
+             margin above) leaves it room, since the hero fades and a fade cuts a shadow off at the view's edges. -->
 
         <TextView
             android:id="@+id/heroName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:shadowColor="#E6000000"
+            android:shadowDy="1.5"
+            android:shadowRadius="4"
             android:textColor="#FFFFFFFF"
             android:textSize="48sp"
             android:fontFamily="@string/font_light"
