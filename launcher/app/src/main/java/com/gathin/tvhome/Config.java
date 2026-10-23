@@ -181,6 +181,11 @@ final class Config {
     static final String GLOW_RADIAL = "radial", GLOW_HORIZON = "horizon";
     /** Show each rotating wallpaper's name from wallpapers/captions.txt (config.xml / theme wallpaper_captions). */
     final boolean wallpaperCaptions;
+    /**
+     * Where Home's wallpaper comes from (config.xml / theme photo_source): "" for the theme's own pictures, or
+     * {@link PictureWindow#SOURCE} for the photo on screen in the Picture Window app, with its credit and place.
+     */
+    final String photoSource;
     /** Answer VIEW_INPUTS with the Inputs menu (handle_view_inputs); see InputsRequestActivity. */
     final boolean handleViewInputs;
     /** Hold OK on a tile opens a menu (Move, Remove from Home, App info) instead of App info (config.xml / theme tile_menu). */
@@ -198,7 +203,7 @@ final class Config {
                    Festival festival, int[] inputKeycodes, List<String> appKeys, String stockHomeRedirect,
                    List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, boolean appGlow, int homeIdleClockMinutes,
                    boolean keyFilter, boolean dockGlass, String glowStyle, boolean wallpaperCaptions,
-                   boolean handleViewInputs, boolean tileMenu, boolean dockEvenPadding) {
+                   boolean handleViewInputs, boolean tileMenu, boolean dockEvenPadding, String photoSource) {
         this.handleViewInputs = handleViewInputs;
         this.tileMenu = tileMenu;
         this.inputKeycodes = inputKeycodes;
@@ -271,6 +276,7 @@ final class Config {
         this.dockEvenPadding = dockEvenPadding;
         this.glowStyle = glowStyle(glowStyle);
         this.wallpaperCaptions = wallpaperCaptions;
+        this.photoSource = photoSource;
     }
 
     /** A known glow_style, or radial (the default) for anything else. */
@@ -347,6 +353,7 @@ final class Config {
         boolean dockGlass = res.getBoolean(R.bool.dock_glass);
         boolean dockEvenPadding = res.getBoolean(R.bool.dock_even_padding);
         String glowStyle = res.getString(R.string.glow_style);
+        String photoSource = res.getString(R.string.photo_source);
         boolean applied = false;
 
         File dir = dir(ctx);
@@ -417,6 +424,7 @@ final class Config {
             dockGlass = bool(json, "dock_glass", dockGlass);
             dockEvenPadding = bool(json, "dock_even_padding", dockEvenPadding);
             glowStyle = string(json, "glow_style", glowStyle);
+            photoSource = string(json, "photo_source", photoSource);
         }
         // A theme push or reset invalidates choices made on the TV. On first use, remember the
         // current theme without clearing choices from an older launcher version.
@@ -452,6 +460,8 @@ final class Config {
         String wallpaperChoice = choices.getString(WALLPAPER_CHOICE_KEY, null);
         List<File> chosen = WallpaperRotation.chosen(dir == null ? Collections.emptyList()
                 : WallpaperRotation.images(new File(dir, "wallpapers")), wallpaper, wallpaperChoice);
+        // "wallpaper": false or a pick in Launcher settings (None or one picture) also wins over photo_source.
+        photoSource = wallpaperEnabled && chosen == null ? PictureWindow.source(photoSource) : "";
         if (chosen != null) {
             wallpapers.clear();
             wallpapers.addAll(chosen);
@@ -470,7 +480,7 @@ final class Config {
                 Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, restoreKeyServices, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, dockOpacity, wallpaperOrder, applied,
                 festival, inputKeycodes, appKeys, stockHomeRedirect, json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow, appGlow,
-                Math.max(0, idleClockMinutes), keyFilter, dockGlass, glowStyle, wallpaperCaptions, handleViewInputs, tileMenu, dockEvenPadding);
+                Math.max(0, idleClockMinutes), keyFilter, dockGlass, glowStyle, wallpaperCaptions, handleViewInputs, tileMenu, dockEvenPadding, photoSource);
     }
 
     /**

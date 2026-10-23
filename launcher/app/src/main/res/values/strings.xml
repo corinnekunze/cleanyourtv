@@ -145,4 +145,7 @@
     <!-- Cinematic top shelf (cinematic_home): the line under the focused dock app's name; %1$s is when it was
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Last opened %1$s</string>
+    <!-- photo_source picture_window: the credit line under the top-right buttons, as the Picture Window
+         screensaver shows it; %1$s is the photographer's name. -->
+    <string name="photo_by">Photo by %1$s</string>
 </resources>
