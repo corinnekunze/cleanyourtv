@@ -512,4 +512,10 @@
     <!-- Tiles drawn from the app's icon and name instead of its banner (for banners that crop badly). -->
     <string-array name="icon_tiles" translatable="false">
     </string-array>
+
+    <!-- Where Home's wallpaper comes from: empty for the theme's own pictures (the default), or picture_window for the
+         photo on screen in the Picture Window app (com.mtdetc.picturewindow), read from its provider with its credit
+         and place, so Home and that screensaver match. If the app is missing or has no photo, the theme's pictures
+         show. Can also be set with "photo_source": "picture_window" in a theme's config.json. -->
+    <string name="photo_source" translatable="false"></string>
 </resources>

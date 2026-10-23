@@ -155,4 +155,7 @@
     <string name="last_opened">Last opened %1$s</string>
     <!-- game_day: a game on now, in the race panel. -->
     <string name="game_live">Live now</string>
+    <!-- photo_source picture_window: the credit line under the top-right buttons, as the Picture Window
+         screensaver shows it; %1$s is the photographer's name. -->
+    <string name="photo_by">Photo by %1$s</string>
 </resources>
