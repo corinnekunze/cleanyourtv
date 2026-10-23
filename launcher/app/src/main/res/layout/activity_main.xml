@@ -194,6 +194,9 @@
                      right edge of these full-width lines instead of staying under the clock. -->
                 <TextView
                     android:id="@+id/greeting"
+                    android:shadowColor="#E6000000"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
                     android:gravity="left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -214,6 +217,9 @@
 
                     <TextClock
                         android:id="@+id/clock"
+                        android:shadowColor="#E6000000"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:format12Hour="h:mm"
@@ -226,6 +232,9 @@
 
                     <TextClock
                         android:id="@+id/ampm"
+                        android:shadowColor="#E6000000"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
@@ -260,6 +269,9 @@
                         <!-- Shamsi date ("27 Mehr 1405"), shown when shamsi_date is on. -->
                         <TextView
                             android:id="@+id/shamsiDate"
+                            android:shadowColor="#E6000000"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
                             android:gravity="left"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -274,6 +286,9 @@
 
                         <TextClock
                             android:id="@+id/date"
+                            android:shadowColor="#E6000000"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
                             android:gravity="left"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -313,6 +328,9 @@
                  row; gone, it takes no space. -->
             <TextView
                 android:id="@+id/stats"
+                android:shadowColor="#E6000000"
+                android:shadowDy="2"
+                android:shadowRadius="4"
                 android:layout_width="wrap_content"
                 android:layout_below="@id/leftBlock"
                 android:layout_alignStart="@id/leftBlock"
