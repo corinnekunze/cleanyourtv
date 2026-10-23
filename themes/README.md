@@ -82,6 +82,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `wallpaper_dim` | 0 to 90 | Black overlay over wallpaper images, in percent; 0 by default and no shade view at all |
 | `dock_opacity` | 30 to 100 | Opacity of the dock's band, in percent, so a wallpaper shows through it; 100 by default (the cinematic shelf keeps its own translucent band). Launcher settings on the TV offers 100, 70, 50 or 30, which wins until the next theme push or Follow theme |
 | `wallpaper_captions` | bool | With a rotating collection, the shown picture's name under the top-right buttons, from `wallpapers/captions.txt` (`001.jpg<TAB>Dusk over the peaks`, one per line); a picture without a line shows no name (`false` by default) |
+| `photo_source` | `picture_window` or empty | `picture_window` shows the photo on screen in the [Picture Window](#picture-window-photos) app instead of the theme's pictures, with "Photo by" its credit and its place under the top-right buttons, and changes it when that app does. Empty (the default) keeps the theme's pictures; `"wallpaper": false` or a Wallpaper pick in Launcher settings turns it off. An unknown value is ignored |
 | `tile_menu` | bool | Hold OK or press the remote's Menu key on a tile to open a small menu: Move, Remove from Home (with `app_library`) and App info. `false` (the default) keeps holding OK as a shortcut to the app's App info page and leaves Menu unchanged |
 | `festival` | string | Turns on a festive skin: the network pill becomes a diya whose flame follows the connection, Inputs a temple bell, Settings a marigold, and the first Home of the day gets a petal shower. `dussehra` and `diwali` have built-in greetings |
 | `festival_until` | `YYYY-MM-DD` | Last day the festive skin shows; it switches itself off after that. A malformed date turns it off |
@@ -139,6 +140,25 @@ The original system idle screensaver is left unchanged.
 On the TV, Launcher settings has a Wallpaper row: pick one picture from the collection (or the theme's
 `wallpaper.jpg`), or None. A pick shows that one picture and stops the rotation until you choose Theme
 default, press Follow theme, or push a theme again.
+
+## Picture Window photos
+
+With the Picture Window app (`com.mtdetc.picturewindow`) installed, Home can show the same photo as its
+screensaver, with the same credit:
+
+```json
+{ "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20 }
+```
+
+Home asks the app's provider for its current photo on every return to Home and again just after the
+app's next change, and decodes the photo at screen size like any wallpaper (`wallpaper_dim` and
+`wallpaper_true_color` apply). The caption under the top-right buttons is "Photo by" the app's credit,
+then the place; a photo the app has no clean name for shows no credit line, never the raw author. The
+launcher reads only the app's local provider and stays offline.
+
+If the app is missing, has no photo yet, or its photo will not open or decode, Home shows the theme's
+own `wallpaper.jpg` or `wallpapers/` collection (or the plain colour without either) and asks the app
+again on the next return to Home, or after 15 minutes on Home.
 
 ## Reduced motion
 
