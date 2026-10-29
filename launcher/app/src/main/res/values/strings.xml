@@ -158,4 +158,7 @@
     <string name="clock_format_system">System</string>
     <string name="clock_format_12">12-hour</string>
     <string name="clock_format_24">24-hour</string>
+    <!-- photo_source picture_window: the credit line under the top-right buttons, as the Picture Window
+         screensaver shows it; %1$s is the photographer's name. -->
+    <string name="photo_by">Photo by %1$s</string>
 </resources>
