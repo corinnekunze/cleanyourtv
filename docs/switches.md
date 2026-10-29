@@ -68,3 +68,4 @@ rule sit on its wanted list until a screenshot arrives.
 | `clock_format` | <img src="switches/clock_format.jpg" width="320" alt="clock_format on a TV"> |
 | `glow_snap` | <img src="switches/glow_snap.jpg" width="320" alt="glow_snap on a TV: the glow in Netflix red behind the dock"> |
 | `text_shadow` | <img src="switches/text_shadow.jpg" width="320" alt="text_shadow: the clock, date, app name and photo credit with a tight dark shadow over a bright waterfall photo on a TV"> |
+| `photo_source` | <img src="../themes/picture-window/screenshot.jpg" width="320" alt="photo_source picture_window: Home shows the Picture Window app's waterfall photo with Photo by MartinKlippel, Rio Grande do Sul, Brazil under the top-right buttons on a TV"> |
