@@ -206,6 +206,8 @@ screensaver, with the same credit:
 { "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20 }
 ```
 
+That is the whole of [`themes/picture-window/`](picture-window/): `tools/theme.sh themes/picture-window`.
+
 Home asks the app's provider for its current photo on every return to Home and again just after the
 app's next change, and decodes the photo at screen size like any wallpaper (`wallpaper_dim` and
 `wallpaper_true_color` apply). The caption under the top-right buttons is "Photo by" the app's credit,
