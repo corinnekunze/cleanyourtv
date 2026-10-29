@@ -203,7 +203,7 @@ With the Picture Window app (`com.mtdetc.picturewindow`) installed, Home can sho
 screensaver, with the same credit:
 
 ```json
-{ "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20 }
+{ "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20, "ambient_glow": false }
 ```
 
 That is the whole of [`themes/picture-window/`](picture-window/): `tools/theme.sh themes/picture-window`.
