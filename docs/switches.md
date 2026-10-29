@@ -62,3 +62,4 @@ fits the rules; keys from before the rule sit on its wanted list until a screens
 | `icon_tiles` | <img src="switches/icon_tiles.jpg" width="320" alt="icon_tiles: an app drawn from its icon in the grid on a TV"> |
 | `game_day` | <img src="switches/game_day.jpg" width="320" alt="game_day: Minnesota Vikings at Detroit Lions, Kickoff in 5d 13h, with four dots, under the clock on a TV"> |
 | `text_shadow` | <img src="switches/text_shadow.jpg" width="320" alt="text_shadow: the clock, date, app name and photo credit with a tight dark shadow over a bright waterfall photo on a TV"> |
+| `photo_source` | <img src="../themes/picture-window/screenshot.jpg" width="320" alt="photo_source picture_window: Home shows the Picture Window app's waterfall photo with Photo by MartinKlippel, Rio Grande do Sul, Brazil under the top-right buttons on a TV"> |
