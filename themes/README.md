@@ -26,6 +26,7 @@ refused (copy a theme first), and a `config.json` it cannot read is named before
 | `glass/` | Dark navy wallpaper with soft teal and violet light, the cinematic top shelf, a frosted-glass dock, icon-only buttons and the focus glow in the app's colour, gliding without overshoot | <img src="glass/screenshot.jpg" width="320" alt="glass theme"> |
 | `halloween/` | Halloween until 1 Nov 2026: an illustrated haunted house (our own, CC0) and seven night photos from Wikimedia Commons (jack-o'-lanterns by candlelight, a full moon behind a sequoia grove and over a Swedish fjord, a moonrise, two cemeteries in fog), a new one every 30 minutes (credited in `halloween/CREDITS.md`, not on screen), and a frosted-glass dock. With a launcher that knows `seasonal_skin`, the Halloween skin too: a jack-o'-lantern for Wi-Fi that glows while online, a bat for Inputs, a ghost for Settings, bats over the first Home of the day and "Happy Halloween"; it switches itself off after 1 November, the pictures stay until `--reset`. The illustration is CC0; the photos are CC0, public domain, CC BY and CC BY-SA, not MIT: see `halloween/CREDITS.md` | <img src="halloween/screenshot.jpg" width="320" alt="halloween theme"> |
 | `nature-calm/` | Twelve calm nature photos from Wikimedia Commons (misty karst and forest, autumn lakes, spring bluebells, winter frost, mossy woods, a rainforest lake, waterfalls), a new one every five minutes in random order with its place and photographer under the buttons; six small tiles in a frosted-glass dock, round icon-only buttons, no hero name. The photos are CC BY / CC BY-SA, not MIT: see `nature-calm/CREDITS.md` | <img src="nature-calm/screenshot.jpg" width="320" alt="nature-calm theme"> |
+| `picture-window/` | The photo on screen in the [Picture Window](#picture-window-photos) screensaver app as the wallpaper, with "Photo by" its credit, a light dim, no ambient glow and text shadows (needs that app) | <img src="picture-window/screenshot.jpg" width="320" alt="picture-window theme"> |
 | `ruska/` | A Finnish autumn ("ruska") dusk over a lake: spruce shoreline, birches in autumn colour, a few falling leaves, drawn in code by `make_wallpaper.py`. The app-colour glow stays off the picture so the autumn colours keep their own light; the dock is 70% opaque so the lake shows through, and the focus glows in the app's colour without overshoot | <img src="ruska/screenshot.jpg" width="320" alt="ruska theme"> |
 | `scenes/` | 14 dark illustrated landscapes in `wallpapers/`, a new one every hour; drawn from code by `tools/scenes_wallpapers.py` | <img src="scenes/screenshot.jpg" width="320" alt="scenes theme"> |
 | `six-columns/` | Six smaller tiles per row and one grid row visible under the dock | <img src="six-columns/screenshot.jpg" width="320" alt="six-columns theme"> |
@@ -116,6 +117,7 @@ A new key needs one there in the same pull request.
 | `wallpaper_dim` | 0 to 90 | Black overlay over wallpaper images, in percent; 0 by default and no shade view at all |
 | `dock_opacity` | 30 to 100 | Opacity of the dock's band, in percent, so a wallpaper shows through it; 100 by default (the cinematic shelf keeps its own translucent band). Launcher settings on the TV offers 100, 70, 50 or 30, which wins until the next theme push or Follow theme |
 | `wallpaper_captions` | bool | With a rotating collection, the shown picture's name under the top-right buttons, from `wallpapers/captions.txt` (`001.jpg<TAB>Dusk over the peaks`, one per line); a picture without a line shows no name (`false` by default) |
+| `text_shadow` | bool | A tight dark shadow under the white clock, date, greeting, stats line, focused app's name and wallpaper caption, so they stay readable over bright pictures. `false` by default |
 | `wallpaper_moods` | object | A rotating collection grouped by time of day: `{"morning": [...], "evening": [...], "night": [...]}` with file names from `wallpapers/`. Morning runs from sunrise to noon, evening until half an hour after sunset, night the rest, with the sun at config.xml's `latitude` and `longitude` (07:00 and 18:30 without them); a missing group rotates through every picture. Unset by default |
 | `photo_source` | `picture_window` or empty | `picture_window` shows the photo on screen in the [Picture Window](#picture-window-photos) app instead of the theme's pictures, with "Photo by" its credit and its place under the top-right buttons, and changes it when that app does. Empty (the default) keeps the theme's pictures; `"wallpaper": false` or a Wallpaper pick in Launcher settings turns it off. An unknown value is ignored |
 | `tile_menu` | bool | Hold OK or press the remote's Menu key on a tile to open a small menu: Move, Remove from Home (with `app_library`) and App info. `false` (the default) keeps holding OK as a shortcut to the app's App info page and leaves Menu unchanged |
@@ -203,10 +205,8 @@ With the Picture Window app (`com.mtdetc.picturewindow`) installed, Home can sho
 screensaver, with the same credit:
 
 ```json
-{ "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20, "ambient_glow": false }
+{ "wallpaper": true, "photo_source": "picture_window", "wallpaper_dim": 20, "ambient_glow": false, "text_shadow": true }
 ```
-
-That is the whole of [`themes/picture-window/`](picture-window/): `tools/theme.sh themes/picture-window`.
 
 Home asks the app's provider for its current photo on every return to Home and again just after the
 app's next change, and decodes the photo at screen size like any wallpaper (`wallpaper_dim` and

@@ -38,8 +38,6 @@ import java.util.concurrent.Executors;
  * picture_window, the Picture Window app's current photo with its credit, falling back to the theme's pictures.
  */
 final class WallpaperPlayer {
-    /** Room around the caption for its shadow; the margins give it back so the text stays where it was. */
-    private static final int SHADOW_PAD_DP = 8;
     private final FrameLayout root;
     private final ImageView image;
     private final int backgroundColor;
@@ -121,7 +119,7 @@ final class WallpaperPlayer {
         names = config.wallpaperCaptions && config.wallpaperEnabled && !files.isEmpty()
                 ? WallpaperCaptions.read(files.get(0).getParentFile()) : Collections.emptyMap();
         // The credit always shows with the photo: its licence asks for attribution.
-        caption = names.isEmpty() && !photoSource ? null : makeCaption(context, root, photoSource ? 3 : 1);
+        caption = names.isEmpty() && !photoSource ? null : makeCaption(context, root, photoSource ? 3 : 1, config.textShadow);
         if (photoSource) {
             // The photo is read and decoded off the main thread from start(): asking another app's provider here
             // could wait on that app's process start. Until it arrives, Home shows the plain colour.
@@ -324,16 +322,20 @@ final class WallpaperPlayer {
      * Small light text under the top-right buttons, above everything else and never focusable. It sits where the
      * top bar ends in every layout, so it does not cover the clock, the stats line or the tiles.
      */
-    private static TextView makeCaption(Context context, FrameLayout root, int lines) {
+    private static TextView makeCaption(Context context, FrameLayout root, int lines, boolean tightShadow) {
         float dp = context.getResources().getDisplayMetrics().density;
         TextView text = new TextView(context);
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         text.setTextColor(0xD9FFFFFF);
-        // A tight shadow inside padding: a wide one is cut off at the view's edges while the caption fades (the
-        // fade draws into a layer the size of the view), which shows as a dark box instead of a glow on the letters.
-        text.setShadowLayer(2 * dp, 0, dp, 0xE6000000);
-        int pad = Math.round(SHADOW_PAD_DP * dp);
-        text.setPadding(pad, pad, pad, pad);
+        // text_shadow: a tight shadow inside padding that the margins give back. A wide one is cut off at the view's
+        // edges while the caption fades (the fade draws into a layer the size of the view), which can show as a box.
+        int pad = tightShadow ? Math.round(8 * dp) : 0;
+        if (tightShadow) {
+            text.setShadowLayer(2 * dp, 0, dp, 0xE6000000);
+            text.setPadding(pad, pad, pad, pad);
+        } else {
+            text.setShadowLayer(6 * dp, 0, dp, 0xCC000000);
+        }
         if (lines == 1) {
             text.setSingleLine(true);
         } else {
@@ -350,8 +352,8 @@ final class WallpaperPlayer {
         }
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP | Gravity.END);
-        params.topMargin = Math.round((110 - SHADOW_PAD_DP) * dp);
-        params.setMarginEnd(Math.round((62 - SHADOW_PAD_DP) * dp));
+        params.topMargin = Math.round(110 * dp) - pad;
+        params.setMarginEnd(Math.round(62 * dp) - pad);
         root.addView(text, params);
         return text;
     }

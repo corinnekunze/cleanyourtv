@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  🎃 <b>New: the Halloween pack.</b> A spooky Home and a Haunted screensaver for your TV, until 1 November. <a href="https://cleanyour.tv/halloween">cleanyour.tv/halloween</a>
+  🎃 <b>New: the Halloween pack</b> (until 1 Nov): <a href="https://cleanyour.tv/halloween">cleanyour.tv/halloween</a>
 </p>
 
 <p align="center">
@@ -277,7 +277,7 @@ set is in [Troubleshooting](docs/TROUBLESHOOTING.md).
 |---|---|
 | **Configure** | Dock order, hidden apps, Live TV app, 4 to 7 tiles per row, reduced motion. All in [`config.xml`](launcher/app/src/main/res/values/config.xml) |
 | **Settings on the TV** | Hold OK on Settings for launcher settings. Optional `launcher_settings_button` makes a normal click open them directly; TV settings remain on the settings page and their app tile. |
-| **Themes** | Background, wallpaper and layout from a `config.json` pushed over Wi-Fi, no rebuild. twelve ship in [`themes/`](themes/), the built-in `default/` included |
+| **Themes** | Background, wallpaper and layout from a `config.json` pushed over Wi-Fi, no rebuild. 13 ship in [`themes/`](themes/), the built-in `default/` included |
 | **30 languages** | Follows the TV's language, with a fully mirrored right-to-left layout for Hebrew |
 | **App library** | Optional: browse every installed app and add or remove Home shortcuts. See [the app library guide](docs/app-library.md) |
 | **Tile menu** | Optional (`tile_menu`): hold OK on a tile for Move, Remove from Home and App info. Off, holding OK opens App info |

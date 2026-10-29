@@ -94,4 +94,5 @@
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
     <string name="game_live">Şimdi canlı</string>
+    <string name="photo_by">Fotoğraf: %1$s</string>
 </resources>
