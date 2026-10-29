@@ -148,4 +148,5 @@
     <string name="tile_move">移动</string>
     <string name="tile_replace_in_dock">替换为其他应用</string>
     <string name="game_live">直播中</string>
+    <string name="photo_by">摄影：%1$s</string>
 </resources>

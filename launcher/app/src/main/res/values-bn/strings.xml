@@ -99,4 +99,5 @@
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
     <string name="game_live">এখন সরাসরি</string>
+    <string name="photo_by">ছবি: %1$s</string>
 </resources>

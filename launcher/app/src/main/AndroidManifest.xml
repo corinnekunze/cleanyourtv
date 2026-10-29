@@ -68,6 +68,8 @@
         <!-- Coocaa OS sources for the Inputs menu (coocaa_sources); see CoocaaSources. -->
         <provider android:authorities="com.skyworth.tv.provider" />
         <provider android:authorities="com.skyworth.tv.sdk.provider" />
+        <!-- photo_source picture_window: the Picture Window app's current photo; see PictureWindow. -->
+        <provider android:authorities="com.mtdetc.picturewindow.photos" />
     </queries>
 
     <application
