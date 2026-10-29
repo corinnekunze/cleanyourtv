@@ -27,7 +27,7 @@ plus `logcat -d | grep -iE 'screensaver'` for the cache paths. Then
 The classic MiTV ad packages `com.mitv.screensaver` and `com.xiaomi.mitv.advertise` do
 not exist on this firmware; boot ad is already off here (`boot_ad=0`).
 
-## Home: the allowlist still works on this HyperOS 3 build (unlike MiTV-MFFU0)
+## Home: the allowlist still works on this HyperOS 3 build
 
 - Ordinary (non-system) apps' HOME activities are dropped from resolution, same as
   documented for MiTV-MFFU0: with PatchWall disabled, an installed third-party launcher
@@ -45,9 +45,11 @@ not exist on this firmware; boot ad is already off here (`boot_ad=0`).
 - Procedure: install the allowlist-identity home first, press Home once to confirm it
   answers, only then `pm disable-user --user 0 com.mitv.tvhome`. Recovery is
   `pm enable com.mitv.tvhome` plus a reboot. Keep PatchWall enabled if you skip this.
-- MiTV-MFFU0 (OS3.0.115) reported that no sideloaded launcher could own Home on
-  HyperOS 3; on ASTR0 (OS3.0.106) the allowlisted package name does pass. Same
-  generation, different outcome — test instead of assuming.
+- MiTV-MFFU0 (OS3.0.115) first reported that no sideloaded launcher could own Home on
+  HyperOS 3, but that was the standard package name. Its launcher built as
+  `com.thunderstone.idun.dev`, an allowlisted name there, has been its Home since 2026-10-20, also
+  after a full reboot (`examples/xiaomi-mitv-mffu0/debloat.txt`), so both HyperOS 3 builds honor the allowlist.
+  The allowlist itself can differ between sets: check the package name on yours.
 
 ## Screensaver replacement is not possible on this set (no root)
 
@@ -87,3 +89,33 @@ off. Keep `screen_off_timeout` at 2147483647 (never); any finite value makes the
   needs `appops set <pkg> SYSTEM_ALERT_WINDOW allow` to start activities from
   background. A hand-built manifest without `<uses-sdk>` fails to install with
   `INSTALL_FAILED_DEPRECATED_SDK_VERSION`.
+
+## Firmware `OS3.0.119.0.USTAATV`: the periodic cleaner and boot broadcasts
+
+Same set, after an OTA from `.106` to `OS3.0.119.0.USTAATV`. Everything above still holds.
+Two further behaviours are worth documenting.
+
+### `PeriodicCleaner` re-enables disabled packages and kills background apps
+
+`pm disable-user --user 0` on `com.xiaomi.wakeupservice` and `com.xiaomi.voicecontrol` does
+not survive a reboot on this build, and background services are killed at idle.
+The cause is the firmware's periodic cleaner:
+
+    adb shell cmd periodic enable false      # -> periodic cleaner enabled: false
+
+That setting survives reboots. It also took `com.xiaomi.wakeupservice` from ~50% CPU in
+`top` down to ~12%; the package still starts and cannot be disabled without root.
+
+### Third-party `BOOT_COMPLETED` is not delivered on this build
+
+A receiver registered for `BOOT_COMPLETED` and `LOCKED_BOOT_COMPLETED` is never invoked,
+and `adb shell am broadcast -a android.intent.action.BOOT_COMPLETED` is refused. Because
+the firmware also clears `adb_enabled` on every boot, ADB cannot be restored from a
+broadcast receiver — which is why an approach that works elsewhere does nothing here. ADB staying off
+after a reboot is what this repo wants anyway: switch network debugging on by hand when you need it.
+
+### Debloat list note
+
+Leave `com.xiaomi.mitv.shop` enabled if the set's own app store is wanted: the list in
+`examples/xiaomi-mitv-astr0/debloat.txt` disables it, and without a store the only ways to
+install apps are `adb install` and a USB stick.
