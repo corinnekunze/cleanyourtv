@@ -77,7 +77,6 @@ final class WallpaperPlayer {
     private final PackageManager packages;
     /** "Photo by %1$s". */
     private final String photoBy;
-    private final int backgroundColor;
     /** The Picture Window photo on screen, or null while the theme's pictures (or the plain colour) show. */
     private String photoId;
     private String photoCaption;
